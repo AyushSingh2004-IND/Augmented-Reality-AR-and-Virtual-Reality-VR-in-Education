@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR & VR in Education</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.2.0/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.3.0/dist/ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/aframe-ar.js@3.3.0/dist/aframe-ar.js"></script>
+</head>
+<body>
+    <header>
+        <h1>AR & VR in Education</h1>
+        <p>Interactive Learning Experiences</p>
+    </header>
+
+    <nav>
+        <button id="vr-tab" class="tab-button active">VR Solar System</button>
+        <button id="ar-tab" class="tab-button">AR Molecules</button>
+        <button id="info-tab" class="tab-button">About</button>
+    </nav>
+
+    <main>
+        <!-- VR Solar System Section -->
+        <section id="vr-section" class="content-section active">
+            <div class="section-header">
+                <h2>Virtual Reality Solar System</h2>
+                <p>Explore our solar system in an immersive 3D environment</p>
+            </div>
+            
+            <div class="vr-container">
+                <div id="vr-info-panel">
+                    <h3>Solar System Facts</h3>
+                    <div id="planet-info">
+                        <p>Select a planet to learn more about it</p>
+                    </div>
+                    <div class="controls">
+                        <button id="reset-view">Reset View</button>
+                        <button id="auto-rotate">Auto Rotate: ON</button>
+                    </div>
+                </div>
+                
+                <div id="vr-scene-container">
+                    <a-scene embedded vr-mode-ui="enabled: false">
+                        <a-entity id="solar-system" position="0 0 -10">
+                            <!-- Sun -->
+                            <a-sphere id="sun" radius="1.5" position="0 0 0" 
+                                      color="#FDB813" 
+                                      animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+                                <a-entity position="0 0 -2" text="value: Sun; align: center; color: white"></a-entity>
+                            </a-sphere>
+                            
+                            <!-- Mercury -->
+                            <a-entity id="mercury-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                                <a-sphere id="mercury" radius="0.2" position="3 0 0" 
+                                          color="#8C7853" 
+                                          class="clickable"
+                                          animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+                                </a-sphere>
+                            </a-entity>
+                            
+                            <!-- Venus -->
+                            <a-entity id="venus-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 35000">
+                                <a-sphere id="venus" radius="0.4" position="5 0 0" 
+                                          color="#E6E6FA" 
+                                          class="clickable"
+                                          animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+                                </a-sphere>
+                            </a-entity>
+                            
+                            <!-- Earth -->
+                            <a-entity id="earth-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 50000">
+                                <a-sphere id="earth" radius="0.5" position="7 0 0" 
+                                          color="#6B93D6" 
+                                          class="clickable"
+                                          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+                                    <!-- Moon -->
+                                    <a-entity id="moon-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+                                        <a-sphere id="moon" radius="0.1" position="1 0 0" color="#AAAAAA"></a-sphere>
+                                    </a-entity>
+                                </a-sphere>
+                            </a-entity>
+                            
+                            <!-- Mars -->
+                            <a-entity id="mars-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 70000">
+                                <a-sphere id="mars" radius="0.4" position="9 0 0" 
+                                          color="#C1440E" 
+                                          class="clickable"
+                                          animation="property: rotation; to: 0 360 0; loop: true; dur: 12000">
+                                </a-sphere>
+                            </a-entity>
+                            
+                            <!-- Jupiter -->
+                            <a-entity id="jupiter-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 120000">
+                                <a-sphere id="jupiter" radius="1" position="12 0 0" 
+                                          color="#C19A6B" 
+                                          class="clickable"
+                                          animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+                                </a-sphere>
+                            </a-entity>
+                            
+                            <!-- Saturn -->
+                            <a-entity id="saturn-orbit" animation="property: rotation; to: 0 360 0; loop: true; dur: 150000">
+                                <a-sphere id="saturn" radius="0.9" position="15 0 0" 
+                                          color="#E3B778" 
+                                          class="clickable"
+                                          animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+                                    <!-- Saturn's Rings -->
+                                    <a-torus id="saturn-rings" radius="1.5" radius-tubular="0.05" rotation="90 0 0" color="#D4B483"></a-torus>
+                                </a-sphere>
+                            </a-entity>
+                        </a-entity>
+                        
+                        <a-camera position="0 0 5">
+                            <a-cursor></a-cursor>
+                        </a-camera>
+                    </a-scene>
+                </div>
+            </div>
+        </section>
+
+        <!-- AR Molecules Section -->
+        <section id="ar-section" class="content-section">
+            <div class="section-header">
+                <h2>Augmented Reality Molecules</h2>
+                <p>View molecular structures in your environment using AR</p>
+            </div>
+            
+            <div class="ar-instructions">
+                <h3>How to Use:</h3>
+                <ol>
+                    <li>Print or display the marker image on another device</li>
+                    <li>Allow camera access when prompted</li>
+                    <li>Point your camera at the marker to view molecules</li>
+                    <li>Select different molecules from the dropdown</li>
+                </ol>
+                <div class="marker-container">
+                    <img src="images/marker.png" alt="AR Marker" id="ar-marker">
+                    <p>AR Marker - Print this or display on another screen</p>
+                </div>
+            </div>
+            
+            <div class="ar-controls">
+                <label for="molecule-select">Select Molecule:</label>
+                <select id="molecule-select">
+                    <option value="water">Water (H₂O)</option>
+                    <option value="methane">Methane (CH₄)</option>
+                    <option value="glucose">Glucose (C₆H₁₂O₆)</option>
+                    <option value="caffeine">Caffeine (C₈H₁₀N₄O₂)</option>
+                </select>
+            </div>
+            
+            <div id="ar-scene-container">
+                <a-scene 
+                    embedded 
+                    arjs="sourceType: webcam; debugUIEnabled: false;"
+                    vr-mode-ui="enabled: false"
+                    renderer="logarithmicDepthBuffer: true;"
+                    id="ar-scene">
+                    
+                    <a-marker id="marker" preset="hiro" emitevents="true" cursor="fuse: false; rayOrigin: mouse;">
+                        <a-entity id="molecule-model" position="0 0 0" scale="0.5 0.5 0.5"></a-entity>
+                    </a-marker>
+                    
+                    <a-entity camera></a-entity>
+                </a-scene>
+            </div>
+            
+            <div id="molecule-info">
+                <h3>Molecule Information</h3>
+                <div id="molecule-details">
+                    <p>Select a molecule to view its structure and information</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <section id="info-section" class="content-section">
+            <div class="section-header">
+                <h2>About AR & VR in Education</h2>
+            </div>
+            
+            <div class="info-content">
+                <div class="info-card">
+                    <h3>Virtual Reality in Education</h3>
+                    <p>VR creates immersive learning environments that allow students to:</p>
+                    <ul>
+                        <li>Explore places they couldn't otherwise visit (historical sites, space, etc.)</li>
+                        <li>Interact with complex 3D models and concepts</li>
+                        <li>Practice skills in safe, controlled environments</li>
+                        <li>Engage in experiential learning that improves retention</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Augmented Reality in Education</h3>
+                    <p>AR enhances real-world environments with digital information:</p>
+                    <ul>
+                        <li>Brings textbooks and learning materials to life</li>
+                        <li>Allows visualization of abstract concepts in physical space</li>
+                        <li>Supports collaborative learning experiences</li>
+                        <li>Makes learning more interactive and engaging</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Benefits of AR/VR in Education</h3>
+                    <ul>
+                        <li>Increased student engagement and motivation</li>
+                        <li>Improved understanding of complex subjects</li>
+                        <li>Access to experiences that would be impossible or dangerous in real life</li>
+                        <li>Catering to different learning styles</li>
+                        <li>Development of spatial reasoning and 3D thinking skills</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>AR & VR Education Demo &copy; 2023 | Created for Educational Purposes</p>
+    </footer>
+
+    <script src="js/vr-solar-system.js"></script>
+    <script src="js/ar-molecules.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
